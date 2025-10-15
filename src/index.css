@@ -25,7 +25,7 @@ a:hover {
 body {
   width: 100%;
   height: auto;
-  background-image: linear-gradient(to top, #f2f2f2 0%, #cc0000 60%, #a30000 100%);
+  background: linear-gradient(90deg, #3B4CCA 0%, #EE1515 100%);
   margin: 0;
   /* font-family: 'Segoe UI', sans-serif; */
   font-family: 'Rubik', sans-serif !important;

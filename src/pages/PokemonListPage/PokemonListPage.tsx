@@ -1,15 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useState, useEffect, type JSX } from 'react';
+import { Link } from 'react-router-dom';
 
 // MUI
 import {
     Box,
-    Grid,
-    Typography
+    Grid
 } from '@mui/material';
 
 // Mis componentes
 import DynamicTable from '../../components/DynamicTable/DynamicTable';
+import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 
 // HOOKS, STORE Y UTILIDADES
 import { usePokemons } from './hooks/usePokemons';
@@ -45,6 +46,7 @@ const columns = [
     { id: "weight", label: "Peso" },
     { id: "height", label: "Altura" },
     { id: "type", label: "Tipo" },
+    { id: "actions", label: "Acciones" },
 ];
 
 const PokemonListPage = () => {
@@ -72,7 +74,7 @@ const PokemonListPage = () => {
             img: (
                 <>
                     { item.img ? (
-                        <Box sx={{ display: 'flex', gap: '5px' }} className="circleBg">
+                        <Box sx={{ display: 'flex', gap: '5px' }} className="circle-bg">
                             <img 
                                 src={item.img}
                                 alt="Product Image"
@@ -89,6 +91,20 @@ const PokemonListPage = () => {
                     )}
                 </>
             ),
+            actions: (
+                <>
+                    <Link to={`/pokemon/${item.name}`} className="animated-button">
+                        <AnimatedButton 
+                            text='View Details'
+                            icon={
+                                <path
+                                    d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
+                                ></path>
+                            }
+                        />
+                    </Link>
+                </>
+            )
         }));
         setTableData(result);
     }
@@ -102,21 +118,10 @@ const PokemonListPage = () => {
     }, [loading]);
 
     return (
-        <Box className='pokemonListPage'>
+        <Box className='pokemon-list-page-container'>
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}> 
-                    <Box className='pageTitle'>
-                        <Box className='titleContainer'>
-                            <Box className="pokeball"></Box>
-                            <h1 className="title">
-                                Pokémon <span className="subtitle">PokeApp</span>
-                            </h1>
-                        </Box>
-                        <Box className='pruebaCs3'>
-                            <Typography variant='h5'>Prueba cs3</Typography>
-                        </Box>
-                    </Box>
-                    <Box className='tableContainer'>
+                    <Box className='table-container'>
                         <DynamicTable 
                             isLoading={loading}
                             columns={columns}
