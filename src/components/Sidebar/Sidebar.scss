@@ -1,0 +1,11 @@
+.sidebar {
+
+
+    @media (max-width: 1200px) {
+        width: 250px !important;
+    }
+
+    @media (max-width: 767px) {
+        width: 200px !important;
+    }
+}

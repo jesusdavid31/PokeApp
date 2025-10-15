@@ -42,7 +42,7 @@ const BasicTable = ({
     handlePageClick
 }: Props) => (
     <>
-        <Grid container spacing={3}>
+        <Grid container spacing={0}>
             <Grid size={{ xs: 12 }}>
 
                 {/* TABLA DINAMICA */}

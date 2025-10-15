@@ -5,7 +5,8 @@ import { Link } from 'react-router-dom';
 // MUI
 import {
     Box,
-    Grid
+    Grid,
+    Typography
 } from '@mui/material';
 
 // Mis componentes
@@ -14,7 +15,7 @@ import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 
 // HOOKS, STORE Y UTILIDADES
 import { usePokemons } from './hooks/usePokemons';
-import { usePaginationStore } from '../../store/usePaginationStore';
+import { usePaginationStore } from '../../store/usePaginationStore.store';
 
 // ESTILOS
 import './PokemonListPage.scss';
@@ -51,7 +52,7 @@ const columns = [
 
 const PokemonListPage = () => {
 
-    // HOOK DE POKEMONS
+    // HOOK DE POKEMON
     const { 
         loading,
         totalItems,
@@ -95,7 +96,7 @@ const PokemonListPage = () => {
                 <>
                     <Link to={`/pokemon/${item.name}`} className="animated-button">
                         <AnimatedButton 
-                            text='View Details'
+                            text='Ver detalles'
                             icon={
                                 <path
                                     d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z"
@@ -121,6 +122,9 @@ const PokemonListPage = () => {
         <Box className='pokemon-list-page-container'>
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}> 
+                    <Box className='title-container'>
+                        <Typography variant="h4">Lista de Pokémon</Typography>
+                    </Box>
                     <Box className='table-container'>
                         <DynamicTable 
                             isLoading={loading}

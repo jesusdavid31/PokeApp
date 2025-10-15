@@ -1,38 +1,72 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
-interface Generation {
+// STORE
+import { usePokemonGenerationsStore } from '../store/usePokemonGenerations.store';
+
+interface PokemonSpecies {
     name: string;
     url: string;
 }
 
-export const usePokemonGenerations = () => {
+interface UsePokemonGenerationsState {
+    loading: boolean;
+    fetchGenerations: () => Promise<void>;
+    error: string | null;
+}
 
-    const [generations, setGenerations] = useState<Generation[]>([]);
-    const [loading, setLoading] = useState(true);
+export const usePokemonGenerations = (): UsePokemonGenerationsState => {
+
+    const { generations, setGenerations } = usePokemonGenerationsStore();
+
+    const [loading, setLoading] = useState(false);
     const [error, setError] = useState<string | null>(null);
 
-    useEffect(() => {
-        const fetchGenerations = async () => {
-            try {
-                setLoading(true);
-                const res = await fetch("https://pokeapi.co/api/v2/generation");
-                if (!res.ok) throw new Error("Error al obtener las generaciones");
-
-                const data = await res.json();
-                setGenerations(data.results); // contiene nombre y url de cada generación
-            } catch (err: unknown) {
-                if (err instanceof Error) {
-                    setError(err.message);
-                } else {
-                    setError("Unknown error");
-                }
-            } finally {
-                setLoading(false);
+    const fetchGenerations = async () => {
+        try {
+            
+            if (generations.length > 0) {
+                return;
             }
-        };
+            
+            console.log('Pasando por fetchGenerations');
+            setLoading(true);
+            const res = await fetch("https://pokeapi.co/api/v2/generation");
+            if (!res.ok) throw new Error("Error al obtener las generaciones");
 
-        fetchGenerations();
-    }, []);
+            const data = await res.json();
 
-    return { generations, loading, error };
+            // Traer los datos detallados de cada generación
+            const generationDetails = await Promise.all(
+                data.results.map(async (gen: { name: string; url: string }, index: number) => {
+                    const genRes = await fetch(gen.url);
+                    if (!genRes.ok) throw new Error(`Error al obtener ${gen.name}`);
+
+                    const genData = await genRes.json();
+
+                    return {
+                        id: index + 1,
+                        name: gen.name,
+                        url: gen.url,
+                        pokemon: genData.pokemon_species.map((p: PokemonSpecies) => ({
+                            name: p.name,
+                            url: p.url,
+                        })),
+                    };
+                })
+            );
+
+            setGenerations(generationDetails);
+
+        } catch (err: unknown) {
+            if (err instanceof Error) {
+                setError(err.message);
+            } else {
+                setError("Unknown error");
+            }
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    return { loading, fetchGenerations, error };
 };

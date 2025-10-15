@@ -1,10 +1,8 @@
-import { useState } from "react";
 
-// Components
+// MUI
 import {
     Box,
-    Typography,
-    Drawer,
+    Typography
 } from "@mui/material";
 
 // Icons
@@ -13,9 +11,12 @@ import { HiOutlineBars3 } from "react-icons/hi2";
 // ESTILOS
 import './Header.scss';
 
-const Header = () => {
+interface HeaderProps {
+    openMenu: boolean;
+    setOpenMenu: (open: boolean) => void;
+}
 
-    const [openMenu, setOpenMenu] = useState(false);
+const Header = ({ openMenu, setOpenMenu }: HeaderProps) => {
 
     return (
         <>
@@ -32,20 +33,10 @@ const Header = () => {
                             <Typography variant='h5'>Prueba cs3</Typography>
                         </Box>
                         <Box className="header-menu-container">
-                            <HiOutlineBars3 onClick={() => setOpenMenu(true)} />
+                            <HiOutlineBars3 onClick={() => setOpenMenu(!openMenu)} color="white" />
                         </Box>
                     </Box>
                 </Box>
-                <Drawer open={openMenu} onClose={() => setOpenMenu(false)} anchor="left">
-                    <Box
-                        sx={{ width: 250, backgroundColor: "#C9511D" }}
-                        role="presentation"
-                        onClick={() => setOpenMenu(false)}
-                        onKeyDown={() => setOpenMenu(false)}
-                    >
-                        Hola Mundo
-                    </Box>
-                </Drawer>
             </nav>
         </>
     );
