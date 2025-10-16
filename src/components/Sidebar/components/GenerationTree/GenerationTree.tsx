@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // MUI
 import { Box } from '@mui/material';
@@ -9,10 +11,13 @@ import AccordionDetails from '@mui/material/AccordionDetails';
 import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
+// Mis componentes
+import AccordionSkeleton from '../AccordionSkeleton/AccordionSkeleton';
+
 // HOOKS, STORE Y UTILIDADES
-import { usePokemonGenerationsStore } from '../../../../store/pokemonGenerations.store';
 import { usePokemonGenerations } from '../../../../hooks/usePokemonGenerations';
-import { usePokemonByGeneration } from '../../../../hooks/usePokemonByGeneration';
+import { usePaginationStore } from '../../../../store/pagination.store';
+import { usePokemonGenerationsStore } from '../../../../store/pokemonGenerations.store';
 
 // ESTILOS
 import './GenerationTree.scss';
@@ -25,11 +30,28 @@ const GenerationTree = () => {
         fetchGenerations
     } = usePokemonGenerations();
 
-    // HOOK DE POKEMON POR GENERACION
-    const { loadGeneration } = usePokemonByGeneration();
+    const navigate = useNavigate();
 
     // STORE
     const { generations } = usePokemonGenerationsStore();
+    const { setPage } = usePaginationStore();
+
+    const [expanded, setExpanded] = useState<string | false>(false);
+
+    const handleAccordionChange = (panel: string) => (_: any, isExpanded: boolean) => {
+        setExpanded(isExpanded ? panel : false); // solo uno abierto
+        if (isExpanded) {
+            console.log(panel);
+            handleGenerationSelect(panel);
+        }
+    };
+
+    const handleGenerationSelect = (genName: string) => {
+        // Resetea la paginación al cambiar de generación
+        setPage(1);
+        // Navega a la página de la generación seleccionada
+        navigate(`/${genName}`);
+    }
 
     useEffect(() => {
         fetchGenerations();
@@ -38,14 +60,15 @@ const GenerationTree = () => {
     return (
         <Box sx={{ width: '100%', marginBottom: 10 }} className="generation-tree">
             {loading ? (
-                <Typography>Cargando generaciones...</Typography>
+                <AccordionSkeleton />
             ): (
                 <>
                     {generations.map((gen) => (
                         <Accordion 
                             key={gen.id} 
                             className='generation-accordion'
-                            onChange={(_, expanded) => expanded && loadGeneration(gen.id)}
+                            expanded={expanded === gen.name}
+                            onChange={handleAccordionChange(gen.name)}
                         >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ color: '#fff' }} />}

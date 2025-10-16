@@ -47,7 +47,7 @@ const PokemonDetailsPage = () => {
                     { pokemon && (
                         <div className="pokemon-detail" style={{ background: `linear-gradient(145deg, ${pokemon.color},rgb(54, 54, 54))` }}>
                             {/* From Uiverse.io by Jedi-hongbin */}
-                            <button className="animated-button" onClick={() => navigate('/home-page')}>
+                            <button className="animated-button" onClick={() => navigate(-1)}>
                                 <AnimatedButton 
                                     text='Back' 
                                     icon={

@@ -11,11 +11,19 @@ interface Pokemon {
 }
 
 interface ListPokemonState {
+    loading: boolean;
+    setLoading: (value: boolean) => void;
+    totalPokemon: number;
+    setTotalPokemon: (value: number) => void;
     pokemon: Pokemon[];
     setPokemon: (data: Pokemon[]) => void;
 }
 
-export const useListPokemon = create<ListPokemonState>((set) => ({
+export const useListPokemonStore = create<ListPokemonState>((set) => ({
+    loading: false,
+    setLoading: (value) => set({ loading: value }),
+    totalPokemon: 0,
+    setTotalPokemon: (value) => set({ totalPokemon: value }),
     pokemon: [],
     setPokemon: (data) => set({ pokemon: data }),
 }));

@@ -1,13 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/hooks/usePokemonByGeneration.ts
-import { useCallback, useRef, useState } from "react";
+import { useCallback } from "react";
+import { useParams } from 'react-router-dom';
 
 // STORE
 import { usePokemonGenerationsStore } from "../store/pokemonGenerations.store";
-import { useListPokemon } from "../store/listPokemon.store";
+import { useListPokemonStore } from "../store/listPokemon.store";
 
 // INTERFACES
 import { typeColorMap } from "../pages/PokemonListPage/interfaces/pokemon-colors.interface";
+
+// Librerías
+import Swal from "sweetalert2";
 
 export interface SimplePokemon {
     id: string;
@@ -23,39 +27,45 @@ const pokemonDetailUrl = (name: string) => `https://pokeapi.co/api/v2/pokemon/${
 
 export function usePokemonByGeneration() {
 
+    const { generation } = useParams<{ generation: string }>();
+
     // STORE
     const { generations } = usePokemonGenerationsStore();
-    const { pokemon, setPokemon } = useListPokemon();
+    const { setPokemon, setLoading, setTotalPokemon } = useListPokemonStore();
 
-    // Estado local (luego lo migramos a Zustand si quieres)
-    // const [pokemons, setPokemons] = useState<SimplePokemon[] | null>(null);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<string | null>(null);
+    const loadGeneration = useCallback(async ( page: number ) => {
 
-    // Para evitar recargar la misma generación si ya está cargada
-    const loadedGenIdRef = useRef<number | null>(null);
-
-    const loadGeneration = useCallback(async (genId: number) => {
-
-        // Si ya cargaste esta generación, no vuelvas a cargar
-        if (loadedGenIdRef.current === genId && pokemon) return;
-
-        const gen = generations.find((g) => g.id === genId);
+        const gen = generations.find((g) => g.name === generation);
         if (!gen) {
-            setError("Generación no encontrada en el store.");
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: "No se encontró la generación solicitada.",
+            });
             return;
         }
 
-        setError(null);
         setLoading(true);
 
         try {
 
+            const pageSize = 10;
+            // Nos protegemos de páginas fuera de rango
+            const totalPages = Math.max(1, Math.ceil(gen.pokemon.length / pageSize));
+            // Usamos safePage en lugar de page para calcular start/end
+            const safePage = Math.min(Math.max(page, 1), totalPages);
+
+            const start = (safePage - 1) * pageSize;
+            const end = start + pageSize;
+
+            // toma SOLO los 10 de la página solicitada
+            const pageSpecies = gen.pokemon.slice(start, end);
+
             // Pedimos el detalle de cada pokemon por su "name"
-            const requests = gen.pokemon.map(async (sp) => {
+            const requests = pageSpecies.map(async (sp) => {
                 
                 const res = await fetch(pokemonDetailUrl(sp.name));
-                if (!res.ok) throw new Error(`No se pudo obtener ${sp.name}`);
+                if (!res.ok) throw new Error(`No se pudo obtener al Pokémon ${sp.name}`);
                 const data = await res.json();
 
                 // con typeList creamos una lista de tipos (ej: ["fire", "flying"]) a partir de los datos del Pokémon
@@ -100,24 +110,24 @@ export function usePokemonByGeneration() {
 
             const result = await Promise.all(requests);
 
-            // Ordenado por id (opcional, ayuda a que se vea consistente)
-            // result.sort((a, b) => a.id - b.id);
-
+            setTotalPokemon(gen.pokemon.length);
             setPokemon(result);
-            loadedGenIdRef.current = genId;
 
-        } catch (e: any) {
-            setError(e?.message ?? "Error al cargar Pokémon de la generación.");
+        } catch (error) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops...",
+                text: (error instanceof Error ? error.message : "No se encontraron todos los Pokémons para la generación seleccionada. Por favor, intenta de nuevo."),
+            });
             setPokemon([]); // Limpiamos la lista en caso de error
         } finally {
             setLoading(false);
         }
 
-    }, [generations, pokemon, setPokemon]);
+    }, [generations, generation, setPokemon, setTotalPokemon, setLoading]);
 
     return {
-        loading,    // boolean
-        error,      // string | null
+        generation,
         loadGeneration, // (genId: number) => Promise<void>
     };
 }

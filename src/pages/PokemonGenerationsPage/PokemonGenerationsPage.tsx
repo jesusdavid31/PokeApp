@@ -15,12 +15,12 @@ import DynamicTable from '../../components/DynamicTable/DynamicTable';
 import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 
 // HOOKS, STORE Y UTILIDADES
-import { usePokemon } from './hooks/usePokemon';
+import { usePokemonByGeneration } from '../../hooks/usePokemonByGeneration';
 import { useListPokemonStore } from '../../store/listPokemon.store';
 import { usePaginationStore } from '../../store/pagination.store';
 
 // ESTILOS
-import './PokemonListPage.scss';
+import './PokemonGenerationsPage.scss';
 
 interface Pokemon {
     id: string;
@@ -54,10 +54,8 @@ const columns = [
 
 const PokemonListPage = () => {
 
-    // HOOK DE POKEMON
-    const { 
-        getPokemons
-    } = usePokemon();
+    // HOOK DE POKEMON POR GENERACIÓN
+    const { generation, loadGeneration } = usePokemonByGeneration();
 
     // STORE
     const { loading, pokemon, totalPokemon } = useListPokemonStore();
@@ -68,7 +66,7 @@ const PokemonListPage = () => {
 
     const handlePageClick = (_: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        getPokemons(value);
+        loadGeneration(value);
     };
 
     const mapPokemons = (data: Pokemon[]) => {
@@ -113,19 +111,19 @@ const PokemonListPage = () => {
     }
 
     useEffect(() => {
-        getPokemons(page);
-    }, [page]);
+        loadGeneration(page);
+    }, [generation, page]);
 
     useEffect(() => {
         mapPokemons(pokemon);
     }, [loading, pokemon]);
 
     return (
-        <Box className='pokemon-list-page-container'>
+        <Box className='pokemon-generations-page-container'>
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}> 
                     <Box className='title-container'>
-                        <Typography variant="h4">Lista de Pokémon</Typography>
+                        <Typography variant="h4">Lista de Pokémon de la generación</Typography>
                     </Box>
                     <Box>
                         {loading ? (
