@@ -15,7 +15,8 @@ import DynamicTable from '../../components/DynamicTable/DynamicTable';
 import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 
 // HOOKS, STORE Y UTILIDADES
-import { usePokemons } from './hooks/usePokemons';
+import { usePokemon } from './hooks/usePokemon';
+import { useListPokemon } from '../../store/listPokemon.store';
 import { usePaginationStore } from '../../store/pagination.store';
 
 // ESTILOS
@@ -57,10 +58,10 @@ const PokemonListPage = () => {
     const { 
         loading,
         totalItems,
-        pokemons,
         getPokemons
-    } = usePokemons();
+    } = usePokemon();
 
+    const { pokemon } = useListPokemon();
     const { page, setPage } = usePaginationStore();
 
     const [tableData, setTableData] = useState<TableData[]>([]);
@@ -116,8 +117,8 @@ const PokemonListPage = () => {
     }, [page]);
 
     useEffect(() => {
-        mapPokemons(pokemons);
-    }, [loading]);
+        mapPokemons(pokemon);
+    }, [loading, pokemon]);
 
     return (
         <Box className='pokemon-list-page-container'>

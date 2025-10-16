@@ -16,6 +16,7 @@ interface UsePokemonGenerationsState {
 
 export const usePokemonGenerations = (): UsePokemonGenerationsState => {
 
+    // STORE
     const { generations, setGenerations } = usePokemonGenerationsStore();
 
     const [loading, setLoading] = useState(false);

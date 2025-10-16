@@ -1,25 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
 
+// STORE
+import { useListPokemon } from '../../../store/listPokemon.store';
+
 // INTERFACES
 import { typeColorMap } from "../interfaces/pokemon-colors.interface";
 
 import Swal from 'sweetalert2';
 
-interface Pokemon {
-    id: string;
-    name: string;
-    img: string;
-    weight: string;
-    height: string;
-    type: string;
-    color: string;
-}
+export const usePokemon = () => {
 
-export const usePokemons = () => {
+    // STORE
+    const { setPokemon } = useListPokemon();
 
     const [loading, setLoading] = useState<boolean>(true);
-    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
     const [totalItems, setTotalItems] = useState<number>(0);
 
     const getPokemons = async ( page: number ) => {
@@ -79,7 +74,7 @@ export const usePokemons = () => {
             );
 
             setTotalItems(data.count);
-            setPokemons(pokemonDetails);
+            setPokemon(pokemonDetails);
             setLoading(false);
 
         } catch (error: any) {
@@ -90,8 +85,7 @@ export const usePokemons = () => {
 
     return { 
         loading,
-        totalItems,
-        pokemons, 
+        totalItems, 
         getPokemons,
     };
 };

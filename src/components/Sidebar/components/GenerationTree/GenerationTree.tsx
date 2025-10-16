@@ -12,6 +12,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 // HOOKS, STORE Y UTILIDADES
 import { usePokemonGenerationsStore } from '../../../../store/pokemonGenerations.store';
 import { usePokemonGenerations } from '../../../../hooks/usePokemonGenerations';
+import { usePokemonByGeneration } from '../../../../hooks/usePokemonByGeneration';
 
 // ESTILOS
 import './GenerationTree.scss';
@@ -23,6 +24,9 @@ const GenerationTree = () => {
         loading,
         fetchGenerations
     } = usePokemonGenerations();
+
+    // HOOK DE POKEMON POR GENERACION
+    const { loadGeneration } = usePokemonByGeneration();
 
     // STORE
     const { generations } = usePokemonGenerationsStore();
@@ -38,7 +42,11 @@ const GenerationTree = () => {
             ): (
                 <>
                     {generations.map((gen) => (
-                        <Accordion key={gen.id} className='generation-accordion'>
+                        <Accordion 
+                            key={gen.id} 
+                            className='generation-accordion'
+                            onChange={(_, expanded) => expanded && loadGeneration(gen.id)}
+                        >
                             <AccordionSummary
                                 expandIcon={<ExpandMoreIcon sx={{ color: '#fff' }} />}
                                 aria-controls={`panel${gen.id}-content`}
