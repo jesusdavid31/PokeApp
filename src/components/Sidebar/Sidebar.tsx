@@ -35,7 +35,7 @@ const Sidebar = ({ openMenu, setOpenMenu }: SidebarProps) => {
         <Box 
             className="sidebar"
             sx={{
-                width: !isMediumOrSmallScreen ? 350 : "auto",
+                width: !isMediumOrSmallScreen ? 300 : "auto",
                 flexShrink: 0,
             }}
         >
@@ -55,7 +55,7 @@ const Sidebar = ({ openMenu, setOpenMenu }: SidebarProps) => {
                         ? (theme) => theme.zIndex.appBar - 1
                         : "auto",
                     "& .MuiDrawer-paper": {
-                        width: 350,
+                        width: 300,
                         top: 120,
                         height: `calc(100vh - 120px)`,
                         background: "linear-gradient(90deg, #7A0E0E  0%, #2A379B 70%, #2A379B 100%)",

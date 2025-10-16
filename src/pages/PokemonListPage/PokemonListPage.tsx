@@ -10,12 +10,13 @@ import {
 } from '@mui/material';
 
 // Mis componentes
+import SkeletonTable from '../../components/SkeletonTable/SkeletonTable';
 import DynamicTable from '../../components/DynamicTable/DynamicTable';
 import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 
 // HOOKS, STORE Y UTILIDADES
 import { usePokemons } from './hooks/usePokemons';
-import { usePaginationStore } from '../../store/usePaginationStore.store';
+import { usePaginationStore } from '../../store/pagination.store';
 
 // ESTILOS
 import './PokemonListPage.scss';
@@ -70,14 +71,14 @@ const PokemonListPage = () => {
     };
 
     const mapPokemons = (data: Pokemon[]) => {
-        const result = data.map((item: Pokemon) => ({
-            ...item,
+        const result = data.map((pokemon: Pokemon) => ({
+            ...pokemon,
             img: (
                 <>
-                    { item.img ? (
+                    { pokemon.img ? (
                         <Box sx={{ display: 'flex', gap: '5px' }} className="circle-bg">
                             <img 
-                                src={item.img}
+                                src={pokemon.img}
                                 alt="Product Image"
                                 className='tableImages'
                                 width="80"
@@ -94,7 +95,7 @@ const PokemonListPage = () => {
             ),
             actions: (
                 <>
-                    <Link to={`/pokemon/${item.name}`} className="animated-button">
+                    <Link to={`/pokemon/${pokemon.name}`} className="animated-button">
                         <AnimatedButton 
                             text='Ver detalles'
                             icon={
@@ -125,17 +126,23 @@ const PokemonListPage = () => {
                     <Box className='title-container'>
                         <Typography variant="h4">Lista de Pokémon</Typography>
                     </Box>
-                    <Box className='table-container'>
-                        <DynamicTable 
-                            isLoading={loading}
-                            columns={columns}
-                            currentData={tableData}
-                            actualPage={page}
-                            handlePageClick={handlePageClick}
-                            totalPages={Math.ceil(totalItems / 10)}
-                            itemsPerPage={10}
-                            totalItems={totalItems}
-                        />
+                    <Box>
+                        {loading ? (
+                            <SkeletonTable />
+                        ) : (
+                            <Box className='table-container'>
+                                <DynamicTable 
+                                    isLoading={loading}
+                                    columns={columns}
+                                    currentData={tableData}
+                                    actualPage={page}
+                                    handlePageClick={handlePageClick}
+                                    totalPages={Math.ceil(totalItems / 10)}
+                                    itemsPerPage={10}
+                                    totalItems={totalItems}
+                                />
+                            </Box>
+                        )}
                     </Box>
                 </Grid>
             </Grid>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 // STORE
-import { usePokemonGenerationsStore } from '../store/usePokemonGenerations.store';
+import { usePokemonGenerationsStore } from '../store/pokemonGenerations.store';
 
 interface PokemonSpecies {
     name: string;
@@ -24,11 +24,11 @@ export const usePokemonGenerations = (): UsePokemonGenerationsState => {
     const fetchGenerations = async () => {
         try {
             
+            // Si ya hay generaciones cargadas, no hacer nada
             if (generations.length > 0) {
                 return;
             }
             
-            console.log('Pasando por fetchGenerations');
             setLoading(true);
             const res = await fetch("https://pokeapi.co/api/v2/generation");
             if (!res.ok) throw new Error("Error al obtener las generaciones");

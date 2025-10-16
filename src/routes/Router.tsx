@@ -9,7 +9,7 @@ const BlankLayout = Loadable(lazy(() => import('../layouts/blank/BlankLayout')))
 
 /* ****Pages***** */
 const PokemonListPage = Loadable(lazy(() => import('../pages/PokemonListPage/PokemonListPage')));
-// const PokemonDetail = Loadable(lazy(() => import('../pages/pokemon-detail/PokemonDetail')));
+const PokemonDetailsPage = Loadable(lazy(() => import('../pages/PokemonDetailsPage/PokemonDetailsPage')));
 
 const Router = [
   {
@@ -18,7 +18,7 @@ const Router = [
     children: [
       { path: '/', element: <Navigate to="/pokemon-list" /> },
       { path: '/pokemon-list', exact: true, element: <PokemonListPage /> },
-      // { path: '/pokemon/:name', exact: true, element: <PokemonDetail /> },
+      { path: '/pokemon/:name', exact: true, element: <PokemonDetailsPage /> },
       { path: '*', element: <Navigate to="/pokemon-list" /> },
     ],
   },

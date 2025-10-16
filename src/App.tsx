@@ -20,7 +20,7 @@ function App() {
 
   const [openMenu, setOpenMenu] = useState(true);
   const headerHeight = 120;
-  const sidebarWidth = 350;
+  const sidebarWidth = 300;
 
   return (
     <HashRouter>
@@ -34,6 +34,7 @@ function App() {
           marginLeft: { sm: 0, md: `${sidebarWidth}px` },
           padding: "1rem",
           transition: "margin-left 0.3s ease",
+          minHeight: `calc(100vh - ${headerHeight}px)`,
         }}
       >
         <AppRoutes />

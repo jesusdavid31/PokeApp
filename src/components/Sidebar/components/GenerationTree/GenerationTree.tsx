@@ -10,7 +10,7 @@ import Typography from '@mui/material/Typography';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 // HOOKS, STORE Y UTILIDADES
-import { usePokemonGenerationsStore } from '../../../../store/usePokemonGenerations.store';
+import { usePokemonGenerationsStore } from '../../../../store/pokemonGenerations.store';
 import { usePokemonGenerations } from '../../../../hooks/usePokemonGenerations';
 
 // ESTILOS
@@ -18,12 +18,13 @@ import './GenerationTree.scss';
 
 const GenerationTree = () => {
 
-    // HOOK DE POKEMON
+    // HOOK DE GENERACIONES DE POKEMON
     const { 
         loading,
         fetchGenerations
     } = usePokemonGenerations();
 
+    // STORE
     const { generations } = usePokemonGenerationsStore();
 
     useEffect(() => {
