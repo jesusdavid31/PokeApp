@@ -33,6 +33,16 @@ export function usePokemonByGeneration() {
     const { generations } = usePokemonGenerationsStore();
     const { setPokemon, setLoading, setTotalPokemon } = useListPokemonStore();
 
+    const basicPokemon: SimplePokemon = {
+        id: 'Sin ID',
+        name: '',
+        img: '',
+        weight: 'Ninguno',
+        height: 'Ninguno',
+        type: 'Ninguno',
+        color: 'normal',
+    };
+
     const loadGeneration = useCallback(async ( page: number ) => {
 
         const gen = generations.find((g) => g.name === generation);
@@ -65,7 +75,11 @@ export function usePokemonByGeneration() {
             const requests = pageSpecies.map(async (sp) => {
                 
                 const res = await fetch(pokemonDetailUrl(sp.name));
-                if (!res.ok) throw new Error(`No se pudo obtener al Pokémon ${sp.name}`);
+                // if (!res.ok) throw new Error(`No se pudo obtener al Pokémon ${sp.name}`);
+                if (!res.ok) {
+                    basicPokemon.name = sp.name.charAt(0).toUpperCase() + sp.name.slice(1);
+                    return basicPokemon; // Retorna un Pokémon básico en caso de error  
+                }
                 const data = await res.json();
 
                 // con typeList creamos una lista de tipos (ej: ["fire", "flying"]) a partir de los datos del Pokémon
@@ -124,6 +138,7 @@ export function usePokemonByGeneration() {
             setLoading(false);
         }
 
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [generations, generation, setPokemon, setTotalPokemon, setLoading]);
 
     return {
