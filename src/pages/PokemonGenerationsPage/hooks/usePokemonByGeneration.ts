@@ -1,14 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // src/hooks/usePokemonByGeneration.ts
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import { useParams } from 'react-router-dom';
 
 // STORE
-import { usePokemonGenerationsStore } from "../store/pokemonGenerations.store";
-import { useListPokemonStore } from "../store/listPokemon.store";
+import { usePokemonGenerationsStore } from "../../../store/pokemonGenerations.store";
+import { useListPokemonStore } from "../../../store/listPokemon.store";
 
 // INTERFACES
-import { typeColorMap } from "../pages/PokemonListPage/interfaces/pokemon-colors.interface";
+import { typeColorMap } from "../../../interfaces/pokemon-colors.interface";
+import type { Pokemon } from '../../../interfaces/pokemon.interface';
 
 // Librerías
 import Swal from "sweetalert2";
@@ -33,13 +34,16 @@ export function usePokemonByGeneration() {
     const { generations } = usePokemonGenerationsStore();
     const { setPokemon, setLoading, setTotalPokemon } = useListPokemonStore();
 
+    // Identificador de generación (1 a 9)
+    const [generationIdentifier, setGenerationIdentifier] = useState<number>(1);
+
     const basicPokemon: SimplePokemon = {
-        id: 'Sin ID',
+        id: 'Error al cargar sus datos',
         name: '',
         img: '',
-        weight: 'Ninguno',
-        height: 'Ninguno',
-        type: 'Ninguno',
+        weight: 'Error al cargar sus datos',
+        height: 'Error al cargar sus datos',
+        type: 'Error al cargar sus datos',
         color: 'normal',
     };
 
@@ -55,6 +59,7 @@ export function usePokemonByGeneration() {
             return;
         }
 
+        setGenerationIdentifier(gen.id);
         setLoading(true);
 
         try {
@@ -78,9 +83,9 @@ export function usePokemonByGeneration() {
                 // if (!res.ok) throw new Error(`No se pudo obtener al Pokémon ${sp.name}`);
                 if (!res.ok) {
                     basicPokemon.name = sp.name.charAt(0).toUpperCase() + sp.name.slice(1);
-                    return basicPokemon; // Retorna un Pokémon básico en caso de error  
+                    return basicPokemon; // Retorna un Pokémon sin datos en caso de error  
                 }
-                const data = await res.json();
+                const data: Pokemon = await res.json();
 
                 // con typeList creamos una lista de tipos (ej: ["fire", "flying"]) a partir de los datos del Pokémon
                 const typeList = data.types.map((t: any) => t.type.name);
@@ -139,9 +144,10 @@ export function usePokemonByGeneration() {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [generations, generation, setPokemon, setTotalPokemon, setLoading]);
+    }, [generation]);
 
     return {
+        generationIdentifier,
         generation,
         loadGeneration, // (genId: number) => Promise<void>
     };

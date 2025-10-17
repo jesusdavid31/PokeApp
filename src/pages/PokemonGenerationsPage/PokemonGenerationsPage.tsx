@@ -15,12 +15,16 @@ import DynamicTable from '../../components/DynamicTable/DynamicTable';
 import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 
 // HOOKS, STORE Y UTILIDADES
-import { usePokemonByGeneration } from '../../hooks/usePokemonByGeneration';
+import { usePokemonByGeneration } from './hooks/usePokemonByGeneration';
 import { useListPokemonStore } from '../../store/listPokemon.store';
 import { usePaginationStore } from '../../store/pagination.store';
 
+// LIBRERIAS DE TERCEROS
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 // ESTILOS
 import './PokemonGenerationsPage.scss';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 interface Pokemon {
     id: string;
@@ -55,7 +59,7 @@ const columns = [
 const PokemonListPage = () => {
 
     // HOOK DE POKEMON POR GENERACIÓN
-    const { generation, loadGeneration } = usePokemonByGeneration();
+    const { generationIdentifier, generation, loadGeneration } = usePokemonByGeneration();
 
     // STORE
     const { loading, pokemon, totalPokemon } = useListPokemonStore();
@@ -76,13 +80,13 @@ const PokemonListPage = () => {
                 <>
                     { pokemon.img ? (
                         <Box sx={{ display: 'flex', gap: '5px' }} className="circle-bg">
-                            <img 
+                            <LazyLoadImage
                                 src={pokemon.img}
-                                alt="Product Image"
-                                className='tableImages'
+                                alt={`Imagen de ${pokemon.name}`}
                                 width="80"
                                 height="80"
-                                // onClick={() => handleDisplayImage(item.img)}
+                                effect="blur"     // Añadimos un blur bonito
+                                threshold={150}   // Carga un poco antes de aparecer
                             />
                         </Box>
                     ) : (
@@ -123,7 +127,7 @@ const PokemonListPage = () => {
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}> 
                     <Box className='title-container'>
-                        <Typography variant="h4">Lista de Pokémon de la generación</Typography>
+                        <Typography variant="h4">Lista de Pokémon de la generación {generationIdentifier}</Typography>
                     </Box>
                     <Box>
                         {loading ? (

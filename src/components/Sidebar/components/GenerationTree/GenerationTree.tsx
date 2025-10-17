@@ -41,7 +41,6 @@ const GenerationTree = () => {
     const handleAccordionChange = (panel: string) => (_: any, isExpanded: boolean) => {
         setExpanded(isExpanded ? panel : false); // solo uno abierto
         if (isExpanded) {
-            console.log(panel);
             handleGenerationSelect(panel);
         }
     };
@@ -63,10 +62,18 @@ const GenerationTree = () => {
                 <AccordionSkeleton />
             ): (
                 <>
+                    <Box className="show-all-generations" onClick={() => {
+                        setPage(1);
+                        navigate('/');
+                    }}>
+                        <Typography variant="body1">
+                            Página Principal - Mostrar todos los Pokémon
+                        </Typography>
+                    </Box>
                     {generations.map((gen) => (
                         <Accordion 
                             key={gen.id} 
-                            className='generation-accordion'
+                            className="generation-accordion"
                             expanded={expanded === gen.name}
                             onChange={handleAccordionChange(gen.name)}
                         >
@@ -84,6 +91,16 @@ const GenerationTree = () => {
                                             sx={{ 
                                                 mb: 1, 
                                                 cursor: 'pointer',
+                                                backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                                                p: 1,
+                                                borderRadius: 1,
+                                                '&:hover': {
+                                                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                                                }
+                                            }}
+                                            onClick={() => {
+                                                setPage(1);
+                                                navigate(`/pokemon/${pokemon.name}`);
                                             }}
                                         >
                                             <Typography sx={{ color: '#fff' }}>{pokemon.name.charAt(0).toUpperCase() + pokemon.name.slice(1)}</Typography> 

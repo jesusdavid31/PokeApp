@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 // Interfaces
-import type { Pokemon } from '../../PokemonListPage/interfaces/pokemon.interface';
+import type { Pokemon } from '../../../interfaces/pokemon.interface';
 
 import Swal from 'sweetalert2';
 

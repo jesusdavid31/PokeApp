@@ -19,8 +19,12 @@ import { usePokemon } from './hooks/usePokemon';
 import { useListPokemonStore } from '../../store/listPokemon.store';
 import { usePaginationStore } from '../../store/pagination.store';
 
+// LIBRERIAS DE TERCEROS
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
 // ESTILOS
 import './PokemonListPage.scss';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 interface Pokemon {
     id: string;
@@ -78,13 +82,13 @@ const PokemonListPage = () => {
                 <>
                     { pokemon.img ? (
                         <Box sx={{ display: 'flex', gap: '5px' }} className="circle-bg">
-                            <img 
+                            <LazyLoadImage
                                 src={pokemon.img}
-                                alt="Product Image"
-                                className='tableImages'
+                                alt={`Imagen de ${pokemon.name}`}
                                 width="80"
                                 height="80"
-                                // onClick={() => handleDisplayImage(item.img)}
+                                effect="blur"     // Añadimos un blur bonito
+                                threshold={150}   // Carga un poco antes de aparecer
                             />
                         </Box>
                     ) : (

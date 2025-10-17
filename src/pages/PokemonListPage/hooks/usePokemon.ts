@@ -4,7 +4,8 @@
 import { useListPokemonStore } from '../../../store/listPokemon.store';
 
 // INTERFACES
-import { typeColorMap } from "../interfaces/pokemon-colors.interface";
+import { typeColorMap } from "../../../interfaces/pokemon-colors.interface";
+import type { Pokemon } from '../../../interfaces/pokemon.interface';
 
 import Swal from 'sweetalert2';
 
@@ -34,7 +35,7 @@ export const usePokemon = () => {
                 data.results.map(async (poke: { name: string; url: string }) => {
 
                     const res = await fetch(poke.url);
-                    const data = await res.json();
+                    const data: Pokemon = await res.json();
 
                     // con typeList creamos una lista de tipos (ej: ["fire", "flying"]) a partir de los datos del Pokémon
                     const typeList = data.types.map((t: any) => t.type.name);
