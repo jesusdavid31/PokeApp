@@ -21,6 +21,7 @@ import { usePaginationStore } from '../../store/pagination.store';
 
 // LIBRERIAS DE TERCEROS
 import { LazyLoadImage } from 'react-lazy-load-image-component';
+import { AnimatePresence, motion } from 'framer-motion';
 
 // ESTILOS
 import './PokemonGenerationsPage.scss';
@@ -64,6 +65,9 @@ const PokemonListPage = () => {
     // STORE
     const { loading, pokemon, totalPokemon } = useListPokemonStore();
     const { page, setPage } = usePaginationStore();
+
+    // Estado local para controlar el loader
+    const [showLoader, setShowLoader] = useState(loading);
 
     // Estado local para la tabla
     const [tableData, setTableData] = useState<TableData[]>([]);
@@ -122,6 +126,19 @@ const PokemonListPage = () => {
         mapPokemons(pokemon);
     }, [loading, pokemon]);
 
+    // Controla que el loader se vea al menos 500ms
+    useEffect(() => {
+        let timeout: ReturnType<typeof setTimeout>;
+
+        if (loading) {
+            setShowLoader(true);
+        } else {
+            timeout = setTimeout(() => setShowLoader(false), 500);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [loading]);
+
     return (
         <Box className='pokemon-generations-page-container'>
             <Grid container spacing={3}>
@@ -129,24 +146,40 @@ const PokemonListPage = () => {
                     <Box className='title-container'>
                         <Typography variant="h4">Lista de Pokémon de la generación {generationIdentifier}</Typography>
                     </Box>
-                    <Box>
-                        {loading ? (
-                            <SkeletonTable />
+                    <AnimatePresence mode="wait">
+                        {showLoader ? (
+                            <motion.div
+                                key="skeleton"
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                transition={{ duration: 0.5 }}
+                            >
+                                <SkeletonTable />
+                            </motion.div>
                         ) : (
-                            <Box className='table-container'>
-                                <DynamicTable 
-                                    isLoading={loading}
-                                    columns={columns}
-                                    currentData={tableData}
-                                    actualPage={page}
-                                    handlePageClick={handlePageClick}
-                                    totalPages={Math.ceil(totalPokemon / 10)}
-                                    itemsPerPage={10}
-                                    totalItems={totalPokemon}
-                                />
-                            </Box>
+                            <motion.div
+                                key={`table-page-${page}`} // clave única por página
+                                initial={{ opacity: 0, y: 10 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                exit={{ opacity: 0, y: -10 }}
+                                transition={{ duration: 0.4 }}
+                            >
+                                <Box className='table-container'>
+                                    <DynamicTable 
+                                        isLoading={loading}
+                                        columns={columns}
+                                        currentData={tableData}
+                                        actualPage={page}
+                                        handlePageClick={handlePageClick}
+                                        totalPages={Math.ceil(totalPokemon / 10)}
+                                        itemsPerPage={10}
+                                        totalItems={totalPokemon}
+                                    />
+                                </Box>
+                            </motion.div>
                         )}
-                    </Box>
+                    </AnimatePresence>
                 </Grid>
             </Grid>
         </Box>

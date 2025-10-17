@@ -20,7 +20,7 @@ interface ListPokemonState {
 }
 
 export const useListPokemonStore = create<ListPokemonState>((set) => ({
-    loading: false,
+    loading: true,
     setLoading: (value) => set({ loading: value }),
     totalPokemon: 0,
     setTotalPokemon: (value) => set({ totalPokemon: value }),
