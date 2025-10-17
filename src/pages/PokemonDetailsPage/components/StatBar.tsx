@@ -10,6 +10,19 @@ const StatBar = ({ label, value, color = "#66ccff" }: StatBarProps) => {
 
     const [width, setWidth] = useState("0%");
 
+    const formatLabel = (label: string) => {
+        const statLabels: Record<string, string> = {
+            hp: "HP",
+            attack: "Ataque",
+            defense: "Defensa",
+            "special-attack": "Ataque Especial",
+            "special-defense": "Defensa Especial",
+            speed: "Velocidad"
+        };
+
+        return statLabels[label].toUpperCase() || label.toUpperCase();
+    };
+
     useEffect(() => {
         // Animar después del render
         const timeout = setTimeout(() => {
@@ -24,7 +37,7 @@ const StatBar = ({ label, value, color = "#66ccff" }: StatBarProps) => {
     return (
         <div className="stat">
             <div className="stat-label">
-                <strong>{label.toUpperCase()}</strong>
+                <strong>{formatLabel(label)}</strong>
                 <span>{value}</span>
             </div>
             <div className="progress-bar">

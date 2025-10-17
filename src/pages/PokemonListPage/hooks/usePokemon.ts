@@ -9,10 +9,30 @@ import type { Pokemon } from '../../../interfaces/pokemon.interface';
 
 import Swal from 'sweetalert2';
 
+export interface SimplePokemon {
+    id: string;
+    name: string;
+    img: string;
+    weight: string;
+    height: string;
+    type: string;
+    color: string;
+}
+
 export const usePokemon = () => {
 
     // STORE
     const { setPokemon, setTotalPokemon, setLoading } = useListPokemonStore();
+
+    const basicPokemon: SimplePokemon = {
+        id: 'Error al cargar sus datos',
+        name: '',
+        img: '',
+        weight: 'Error al cargar sus datos',
+        height: 'Error al cargar sus datos',
+        type: 'Error al cargar sus datos',
+        color: 'normal',
+    };
 
     const getPokemons = async ( page: number ) => {
 
@@ -35,6 +55,10 @@ export const usePokemon = () => {
                 data.results.map(async (poke: { name: string; url: string }) => {
 
                     const res = await fetch(poke.url);
+                    if (!res.ok) {
+                        basicPokemon.name = poke.name.charAt(0).toUpperCase() + poke.name.slice(1);
+                        return basicPokemon; // Retorna un Pokémon sin datos en caso de error  
+                    }
                     const data: Pokemon = await res.json();
 
                     // con typeList creamos una lista de tipos (ej: ["fire", "flying"]) a partir de los datos del Pokémon

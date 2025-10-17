@@ -100,6 +100,20 @@
         .normal {
             background: linear-gradient(135deg, #a8a878 0%, #8f8f60 50%, #777748 100%);
         }
+
+
+        /*  Tipos de Pokémon */
+        .type-badge {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            margin: 0.2rem;
+            border: 1px solid #fff;
+        }
     }
 
 }

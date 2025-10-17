@@ -9,6 +9,7 @@ import StatBar from './components/StatBar';
 
 // HOOKS Y UTILIDADES
 import { usePokemonDetails } from './hooks/usePokemonDetails';
+import { formatTypes } from '../../utils/formatTypes';
 
 // LIBRERIAS DE TERCEROS
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -54,7 +55,7 @@ const PokemonDetailsPage = () => {
                             {/* From Uiverse.io by Jedi-hongbin */}
                             <button className="animated-button" onClick={() => navigate(-1)}>
                                 <AnimatedButton 
-                                    text='Back' 
+                                    text='Atrás' 
                                     icon={
                                         <path
                                             d="M7.8284 11H20V13H7.8284L13.1924 18.364L11.7782 19.7782L4 12L11.7782 4.22183L13.1924 5.63604L7.8284 11Z"
@@ -73,14 +74,14 @@ const PokemonDetailsPage = () => {
                                         threshold={150}   // Carga un poco antes de aparecer
                                     />
                                 </div>
-                                <h1>{pokemon.name}</h1>
+                                <h1 style={{ marginBottom: "30px" }}>{pokemon.name}</h1>
                                 <span className="card-id">ID: {pokemon.id}</span>
-                                <p>Height: {pokemon.height}</p>
-                                <p>Weight: {pokemon.weight}</p>
-                                <p>Types: {pokemon.types.join(' / ')}</p>
+                                <p>Altura: {pokemon.height}</p>
+                                <p>Peso: {pokemon.weight}</p>
+                                <div className="types-container">Tipos: {formatTypes(pokemon.types)}</div>
 
                                 <div className="stats">
-                                    <h2>Stats</h2>
+                                    <h2>Estadísticas</h2>
                                     {pokemon.stats.map((stat: any) => (
                                         <div key={stat.name} className="stat-item">
                                             <StatBar 
@@ -93,7 +94,7 @@ const PokemonDetailsPage = () => {
                                 </div>
 
                                 <div className="abilities">
-                                    <h2>Abilities</h2>
+                                    <h2>Habilidades</h2>
                                     <ul>
                                         {pokemon.abilities.map((ab: string) => (
                                             <li key={ab}>{formatAbility(ab)}</li>
@@ -102,7 +103,7 @@ const PokemonDetailsPage = () => {
                                 </div>
 
                                 <div className="evolutions">
-                                    <h2>Evolution Chain</h2>
+                                    <h2>Evoluciones</h2>
                                     <div className="evolution-chain">
                                         {evolutions.map((evo) => (
                                             <div key={evo.name} className="evo-card" onClick={() => navigate(`/pokemon/${evo.name}`)}>

@@ -37,6 +37,25 @@
             border-radius: 5px;
         }
 
+        /*  Tipos de Pokémon */
+        .types-container {
+            display: flex;
+            align-items: center;
+            gap: 7px;
+
+            .type-badge {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: 14px;
+                font-weight: 500;
+                border-radius: 20px;
+                padding: 0.5rem 1rem;
+                margin: 0.2rem;
+                border: 1px solid #fff;
+            }
+        }
+
         .stats, .abilities {
             margin-top: 20px;
 

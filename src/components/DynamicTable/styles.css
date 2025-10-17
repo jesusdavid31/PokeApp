@@ -43,3 +43,19 @@
         stroke-dashoffset: -125px;
     }
 }
+
+@media (max-width: 700px) {
+
+    .pagination-container {
+        flex-direction: column;
+        gap: 15px;
+        align-items: center;
+    }
+
+    .pagination-info {
+
+        h6 {
+            font-size: 16px;
+        }
+    }
+}

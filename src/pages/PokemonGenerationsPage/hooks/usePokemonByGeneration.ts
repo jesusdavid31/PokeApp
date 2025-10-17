@@ -56,6 +56,7 @@ export function usePokemonByGeneration() {
                 title: "Oops...",
                 text: "No se encontró la generación solicitada.",
             });
+            setLoading(false);
             return;
         }
 
@@ -80,7 +81,6 @@ export function usePokemonByGeneration() {
             const requests = pageSpecies.map(async (sp) => {
                 
                 const res = await fetch(pokemonDetailUrl(sp.name));
-                // if (!res.ok) throw new Error(`No se pudo obtener al Pokémon ${sp.name}`);
                 if (!res.ok) {
                     basicPokemon.name = sp.name.charAt(0).toUpperCase() + sp.name.slice(1);
                     return basicPokemon; // Retorna un Pokémon sin datos en caso de error  

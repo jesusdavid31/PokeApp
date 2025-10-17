@@ -52,6 +52,7 @@ export const usePokemonDetails = () => {
             const primaryType = typeList[0];
             let color = typeColorMap[primaryType] || '#ccc';
 
+            // Ajuste especial para el tipo "normal"
             if ( color === '#a8a878' && typeList.length > 1 ) {
                 // Si el tipo es "#ccc" pero hay más de un tipo, usamos el segundo tipo para determinar el color
                 color = typeColorMap[typeList[1]];
@@ -63,7 +64,7 @@ export const usePokemonDetails = () => {
                 img: data.sprites?.other?.['official-artwork']?.front_default,
                 weight: `${(data.weight / 10).toFixed(1)} kg`,
                 height: `${(data.height / 10).toFixed(1)} m`,
-                types: typeList,
+                types: typeList.join(' / '),
                 color,
                 stats: data.stats.map((s: any) => ({
                     name: s.stat.name,

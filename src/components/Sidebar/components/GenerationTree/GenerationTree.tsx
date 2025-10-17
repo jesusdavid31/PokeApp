@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // MUI
 import { Box } from '@mui/material';
@@ -30,6 +30,7 @@ const GenerationTree = () => {
         fetchGenerations
     } = usePokemonGenerations();
 
+    const location = useLocation();
     const navigate = useNavigate();
 
     // STORE
@@ -63,11 +64,14 @@ const GenerationTree = () => {
             ): (
                 <>
                     <Box className="show-all-generations" onClick={() => {
+                        // Si la página actual es la misma que la raíz ("/") no hacemos nada
+                        if (location.pathname === '/') return;
                         setPage(1);
                         navigate('/');
                     }}>
+                        <Box className="pokeball"></Box>
                         <Typography variant="body1">
-                            Página Principal - Mostrar todos los Pokémon
+                            Página Principal
                         </Typography>
                     </Box>
                     {generations.map((gen) => (

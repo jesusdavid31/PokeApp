@@ -19,6 +19,7 @@ import AnimatedButton from '../../components/AnimatedButton/AnimatedButton';
 import { usePokemonByGeneration } from './hooks/usePokemonByGeneration';
 import { useListPokemonStore } from '../../store/listPokemon.store';
 import { usePaginationStore } from '../../store/pagination.store';
+import { formatTypes } from '../../utils/formatTypes';
 
 // LIBRERIAS DE TERCEROS
 import { LazyLoadImage } from 'react-lazy-load-image-component';
@@ -44,7 +45,7 @@ interface TableData {
     img: JSX.Element;
     weight: string;
     height: string;
-    type: string;
+    type: JSX.Element;
     color: string;
 }
 
@@ -71,6 +72,7 @@ const PokemonListPage = () => {
     const [tableData, setTableData] = useState<TableData[]>([]);
 
     const handlePageClick = (_: React.ChangeEvent<unknown>, value: number) => {
+        if (value === page) return; // Si es la misma página, no hacemos nada
         setPage(value);
         setLoading(true);
         const timeoutId = setTimeout(() => {
@@ -104,6 +106,11 @@ const PokemonListPage = () => {
                         </Box>
                     )}
                 </>
+            ),
+            type: (
+                <Box sx={{ display: 'flex', gap: '5px' }}>
+                    {formatTypes(pokemon.type)}
+                </Box>
             ),
             actions: (
                 <>

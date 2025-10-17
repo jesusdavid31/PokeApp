@@ -101,9 +101,10 @@ const BasicTable = ({
 
                 { ( !isLoading && totalItems > 0) && 
                     <Box 
+                        className='pagination-container'
                         sx={{ mt: 3,  display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: '15px' }}
                     >
-                        <Box sx={{ marginTop: '7px' }}>
+                        <Box className='pagination-info' sx={{ marginTop: '7px' }}>
                             <Typography variant="h6">
                                 {totalItems > 0 ? (
                                     <>
