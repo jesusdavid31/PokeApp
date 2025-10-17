@@ -60,6 +60,20 @@ const Sidebar = ({ openMenu, setOpenMenu }: SidebarProps) => {
                         height: `calc(100vh - 120px)`,
                         background: "linear-gradient(90deg, #7A0E0E  0%, #2A379B 70%, #2A379B 100%)",
                         borderRight: "1px solid rgba(255, 255, 255, 0.2)",
+                        // Estilos para scroll bonito en navegadores Webkit (Chrome, Edge, Safari)
+                        "&::-webkit-scrollbar": {
+                            width: "6px",
+                            background: "#004A94",
+                            borderRadius: "8px",
+                        },
+                        "&::-webkit-scrollbar-thumb": {
+                            background: "#fff",
+                            borderRadius: "8px",
+                        },
+                        "&::-webkit-scrollbar-track": {
+                            background: "#004A94",
+                            borderRadius: "8px",
+                        },
                         // position: isMediumOrSmallScreen ? "fixed" : "static",
                     },
                 }}

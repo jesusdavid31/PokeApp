@@ -65,18 +65,22 @@ const PokemonListPage = () => {
     } = usePokemon();
 
     // STORE
-    const { loading, pokemon, totalPokemon } = useListPokemonStore();
+    const { loading, setLoading, pokemon, totalPokemon } = useListPokemonStore();
     const { page, setPage } = usePaginationStore();
-
-    // Estado local para controlar el loader
-    const [showLoader, setShowLoader] = useState(loading);
 
     // Estado local para la tabla
     const [tableData, setTableData] = useState<TableData[]>([]);
 
     const handlePageClick = (_: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        getPokemons(value);
+        setLoading(true);
+        const timeoutId = setTimeout(() => {
+            getPokemons(value); // Demora la ejecución del fetch 900ms
+        }, 900);
+        // Función de limpieza: cuando el componente se desmonte o cambien las dependencias
+        return () => {
+            clearTimeout(timeoutId); // Limpiamos el timeout si el componente se desmonta
+        };
     };
 
     const mapPokemons = (data: Pokemon[]) => {
@@ -121,24 +125,18 @@ const PokemonListPage = () => {
     }
 
     useEffect(() => {
-        getPokemons(page);
-    }, [page]);
+        setLoading(true);
+        const timeoutId = setTimeout(() => {
+            getPokemons(page); // Demora la ejecución del fetch 800ms
+        }, 800);
+        // Función de limpieza: cuando el componente se desmonte o cambien las dependencias
+        return () => {
+            clearTimeout(timeoutId); // Limpiamos el timeout si el componente se desmonta
+        };
+    }, []);
 
     useEffect(() => {
         mapPokemons(pokemon);
-    }, [loading, pokemon]);
-
-    // Controla que el loader se vea al menos 500ms
-    useEffect(() => {
-        let timeout: ReturnType<typeof setTimeout>;
-
-        if (loading) {
-            setShowLoader(true);
-        } else {
-            timeout = setTimeout(() => setShowLoader(false), 500);
-        }
-
-        return () => clearTimeout(timeout);
     }, [loading]);
 
     return (
@@ -149,7 +147,7 @@ const PokemonListPage = () => {
                         <Typography variant="h4">Lista de Pokémon</Typography>
                     </Box>
                     <AnimatePresence mode="wait">
-                        {showLoader ? (
+                        {loading ? (
                             <motion.div
                                 key="skeleton"
                                 initial={{ opacity: 0 }}

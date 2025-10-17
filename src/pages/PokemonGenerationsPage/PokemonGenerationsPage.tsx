@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
+
 import { useState, useEffect, type JSX } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -63,18 +64,22 @@ const PokemonListPage = () => {
     const { generationIdentifier, generation, loadGeneration } = usePokemonByGeneration();
 
     // STORE
-    const { loading, pokemon, totalPokemon } = useListPokemonStore();
+    const { loading, setLoading, pokemon, totalPokemon } = useListPokemonStore();
     const { page, setPage } = usePaginationStore();
-
-    // Estado local para controlar el loader
-    const [showLoader, setShowLoader] = useState(loading);
 
     // Estado local para la tabla
     const [tableData, setTableData] = useState<TableData[]>([]);
 
     const handlePageClick = (_: React.ChangeEvent<unknown>, value: number) => {
         setPage(value);
-        loadGeneration(value);
+        setLoading(true);
+        const timeoutId = setTimeout(() => {
+            loadGeneration(value); // Demora la ejecución del fetch 900ms
+        }, 900);
+        // Función de limpieza: cuando el componente se desmonte o cambien las dependencias
+        return () => {
+            clearTimeout(timeoutId); // Limpiamos el timeout si el componente se desmonta
+        };
     };
 
     const mapPokemons = (data: Pokemon[]) => {
@@ -119,35 +124,31 @@ const PokemonListPage = () => {
     }
 
     useEffect(() => {
-        loadGeneration(page);
-    }, [generation, page]);
+        setLoading(true);
+        const timeoutId = setTimeout(() => {
+            loadGeneration(page); // Demora la ejecución del fetch 1000ms
+        }, 1000);
+        // Función de limpieza: cuando el componente se desmonte o cambien las dependencias
+        return () => {
+            clearTimeout(timeoutId); // Limpiamos el timeout si el componente se desmonta
+        };
+    }, [generation]);
 
     useEffect(() => {
         mapPokemons(pokemon);
-    }, [loading, pokemon]);
-
-    // Controla que el loader se vea al menos 500ms
-    useEffect(() => {
-        let timeout: ReturnType<typeof setTimeout>;
-
-        if (loading) {
-            setShowLoader(true);
-        } else {
-            timeout = setTimeout(() => setShowLoader(false), 500);
-        }
-
-        return () => clearTimeout(timeout);
     }, [loading]);
 
     return (
         <Box className='pokemon-generations-page-container'>
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}> 
-                    <Box className='title-container'>
-                        <Typography variant="h4">Lista de Pokémon de la generación {generationIdentifier}</Typography>
-                    </Box>
+                    { !loading && (
+                        <Box className='title-container'>
+                            <Typography variant="h4">Lista de Pokémon de la generación {generationIdentifier}</Typography>
+                        </Box>
+                    )}
                     <AnimatePresence mode="wait">
-                        {showLoader ? (
+                        {loading ? (
                             <motion.div
                                 key="skeleton"
                                 initial={{ opacity: 0 }}
@@ -163,7 +164,7 @@ const PokemonListPage = () => {
                                 initial={{ opacity: 0, y: 10 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: -10 }}
-                                transition={{ duration: 0.4 }}
+                                transition={{ duration: 0.5 }}
                             >
                                 <Box className='table-container'>
                                     <DynamicTable 
