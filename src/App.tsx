@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { HashRouter, useRoutes } from 'react-router-dom';
 
 // MUI
-import { Box } from '@mui/material';
+import { Box, createTheme, ThemeProvider } from '@mui/material';
 
 import Router from './routes/Router';
 
@@ -22,24 +22,33 @@ function App() {
   const headerHeight = 120;
   const sidebarWidth = 300;
 
+  // 🔹 Tema con fuente Rubik
+  const theme = createTheme({
+    typography: {
+      fontFamily: "'Rubik', sans-serif",
+    },
+  });
+
   return (
-    <HashRouter>
-      <Header openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu} />
-      <Box
-        component="main"
-        sx={{
-          marginTop: `${headerHeight}px`,
-          // Espaciado lateral responsive (0 en sm, 350px en md y superior)
-          marginLeft: { sm: 0, md: `${sidebarWidth}px` },
-          padding: "1rem",
-          transition: "margin-left 0.3s ease",
-          minHeight: `calc(100vh - ${headerHeight}px)`,
-        }}
-      >
-        <AppRoutes />
-      </Box>
-    </HashRouter>
+    <ThemeProvider theme={theme}>
+      <HashRouter>
+        <Header openMenu={openMenu} setOpenMenu={setOpenMenu} />
+        <Sidebar openMenu={openMenu} setOpenMenu={setOpenMenu} />
+        <Box
+          component="main"
+          sx={{
+            marginTop: `${headerHeight}px`,
+            // Espaciado lateral responsive (0 en sm, 350px en md y superior)
+            marginLeft: { sm: 0, md: `${sidebarWidth}px` },
+            padding: "1rem",
+            transition: "margin-left 0.3s ease",
+            minHeight: `calc(100vh - ${headerHeight}px)`,
+          }}
+        >
+          <AppRoutes />
+        </Box>
+      </HashRouter>
+    </ThemeProvider>
   );
 
 }

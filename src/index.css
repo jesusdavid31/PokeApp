@@ -27,8 +27,6 @@ body {
   height: auto;
   background: linear-gradient(90deg, #3B4CCA 0%, #EE1515 100%);
   margin: 0;
-  /* font-family: 'Segoe UI', sans-serif; */
-  font-family: 'Rubik', sans-serif !important;
   color: #000;
 }
 
