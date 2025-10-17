@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`renders correctly 1`] = `
+<div>
+  <div
+    class="generation-tree MuiBox-root css-3dhuck"
+  >
+    <div
+      class="show-all-generations MuiBox-root css-0"
+    >
+      <div
+        class="pokeball MuiBox-root css-0"
+      />
+      <p
+        class="MuiTypography-root MuiTypography-body1 css-rizt0-MuiTypography-root"
+      >
+        Página Principal
+      </p>
+    </div>
+  </div>
+</div>
+`;

@@ -85,7 +85,7 @@ const BasicTable = ({
                 </TableContainer>
 
                 {isLoading && (
-                    <Box className='center-loading'>
+                    <Box className='center-loading' data-testid="loading-spinner">
                         <svg viewBox="25 25 50 50" className='loading-data'>
                             <circle r="20" cy="50" cx="50" />
                         </svg>

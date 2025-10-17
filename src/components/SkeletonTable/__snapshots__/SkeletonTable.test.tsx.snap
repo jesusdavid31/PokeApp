@@ -1,0 +1,470 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`snapshot 1`] = `
+<div>
+  <div
+    class="sk-table"
+  >
+    <div
+      class="sk-table__frame"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+            <th>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+            <td>
+              <span
+                class="sk-cell sk-shimmer"
+              />
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td
+              colspan="7"
+            >
+              <div
+                class="sk-pagination"
+              >
+                <div
+                  class="sk-page-dots"
+                >
+                  <div
+                    class="sk-btn lg sk-shimmer"
+                  />
+                </div>
+                <div
+                  class="sk-page-dots"
+                >
+                  <div
+                    class="sk-btn sm sk-shimmer"
+                  />
+                   
+                  <span
+                    class="sk-dot sk-shimmer"
+                  />
+                  <span
+                    class="sk-dot sk-shimmer"
+                  />
+                  <span
+                    class="sk-dot sk-shimmer"
+                  />
+                  <span
+                    class="sk-dot sk-shimmer"
+                  />
+                  <div
+                    class="sk-btn sm sk-shimmer"
+                  />
+                   
+                </div>
+              </div>
+            </td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+  </div>
+</div>
+`;

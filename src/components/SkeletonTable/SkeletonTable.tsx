@@ -41,7 +41,7 @@ export default function SkeletonTable() {
                                         <div className="sk-btn lg sk-shimmer" />
                                     </div>
                                     <div className="sk-page-dots">
-                                        <div className="sk-btn sm sk-shimmer" /> {/* Prev */}
+                                        <div data-testid="button" className="sk-btn sm sk-shimmer" /> {/* Prev */}
                                         <span className="sk-dot sk-shimmer" />
                                         <span className="sk-dot sk-shimmer" />
                                         <span className="sk-dot sk-shimmer" />
