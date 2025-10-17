@@ -10,7 +10,12 @@ import StatBar from './components/StatBar';
 // HOOKS Y UTILIDADES
 import { usePokemonDetails } from './hooks/usePokemonDetails';
 
+// LIBRERIAS DE TERCEROS
+import { LazyLoadImage } from 'react-lazy-load-image-component';
+
+// ESTILOS
 import './PokemonDetailsPage.scss';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 
 const PokemonDetailsPage = () => {
 
@@ -59,8 +64,15 @@ const PokemonDetailsPage = () => {
                             </button>
 
                             <div className="card">
-
-                                <img src={pokemon.img} alt={pokemon.name} className="pokemon-img" />
+                                <div className='pokemon-img-container'>
+                                    <LazyLoadImage
+                                        src={pokemon.img}
+                                        alt={`Imagen de ${pokemon.name}`}
+                                        className='pokemon-img'
+                                        effect="blur"     // Añadimos un blur bonito
+                                        threshold={150}   // Carga un poco antes de aparecer
+                                    />
+                                </div>
                                 <h1>{pokemon.name}</h1>
                                 <span className="card-id">ID: {pokemon.id}</span>
                                 <p>Height: {pokemon.height}</p>
@@ -94,7 +106,12 @@ const PokemonDetailsPage = () => {
                                     <div className="evolution-chain">
                                         {evolutions.map((evo) => (
                                             <div key={evo.name} className="evo-card" onClick={() => navigate(`/pokemon/${evo.name}`)}>
-                                                <img src={evo.img} alt={evo.name} />
+                                                <LazyLoadImage
+                                                    src={evo.img}
+                                                    alt={`Imagen de ${evo.name}`}
+                                                    effect="blur"
+                                                    threshold={150}
+                                                />
                                                 <p>{evo.name.charAt(0).toUpperCase() + evo.name.slice(1)}</p>
                                             </div>
                                         ))}
