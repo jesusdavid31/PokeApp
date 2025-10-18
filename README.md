@@ -24,7 +24,7 @@
 - 📦 [pnpm](https://pnpm.io/)
 - 💡 [Jest](https://jestjs.io/) (Para pruebas)
 - 🖼️ [react-lazy-load-image-component](https://www.npmjs.com/package/react-lazy-load-image-component) (Lazy Loading para las imágenes)
-- ✨ [Framer Motion](https://www.framer.com/motion/) (Animaciones y transiciones suaves en las tabla)
+- ✨ [Framer Motion](https://www.framer.com/motion/) (Animaciones y transiciones suaves en las tablas)
 - 📱 **Responsive** → diseño adaptado para desktop y móvil.
 
 ---
