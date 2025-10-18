@@ -151,7 +151,7 @@ const PokemonListPage = () => {
             <Grid container spacing={3}>
                 <Grid size={{ xs: 12, md: 12, lg: 12 }}> 
                     <Box className='title-container'>
-                        <Typography variant="h4">Lista de Pokémon</Typography>
+                        <Typography variant="h4">Lista de pokémon de todas las generaciones</Typography>
                     </Box>
                     <AnimatePresence mode="wait">
                         {loading ? (
