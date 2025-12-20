@@ -30,7 +30,7 @@ const Header = ({ openMenu, setOpenMenu }: HeaderProps) => {
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: '1rem' }}>
                         <Box className='prueba-cs3'>
-                            <Typography variant='h5'>Prueba cs3</Typography>
+                            <Typography variant='h5'>PokeApp</Typography>
                         </Box>
                         <Box className="header-menu-container">
                             <HiOutlineBars3 onClick={() => setOpenMenu(!openMenu)} color="white" />
